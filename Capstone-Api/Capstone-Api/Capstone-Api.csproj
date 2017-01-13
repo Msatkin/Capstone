@@ -287,6 +287,10 @@
     <Compile Include="Migrations\201701051722429_Init.Designer.cs">
       <DependentUpon>201701051722429_Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701131714244_Adding token to userr table.cs" />
+    <Compile Include="Migrations\201701131714244_Adding token to userr table.Designer.cs">
+      <DependentUpon>201701131714244_Adding token to userr table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -391,6 +395,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201701051722429_Init.resx">
       <DependentUpon>201701051722429_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701131714244_Adding token to userr table.resx">
+      <DependentUpon>201701131714244_Adding token to userr table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

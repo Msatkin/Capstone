@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Data.Entity;
 using System.Linq;
 
@@ -56,9 +57,22 @@ namespace Capstone_Api.Models
             return false;
         }
 
-        public string GetToken()
+        public string GetToken(string userId)
         {
-            return "string";
+            ApplicationUser user = GetUser(userId);
+            if (user.Token == null)
+            {
+                string token = CreateToken();
+                user.Token = token;
+                SaveChanges();
+                return token;
+            }
+            return user.Token;
+        }
+
+        public string CreateToken()
+        {
+            return Convert.ToBase64String(Guid.NewGuid().ToByteArray());
         }
     }
 }

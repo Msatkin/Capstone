@@ -32,17 +32,17 @@ namespace Capstone_Api.Apis
             string[] response;
             if (!_db.CheckUsername(username))
             {
-                response = ["Error", "User not found"];
+                response = new string[] { "error", "User not found" };
                 return response;
             }
             userId = _db.GetUserId(username);
             if (_db.CheckPassword(userId, password))
             {
                 string token = _db.GetToken(userId);
-                response = ["success", token];
+                response = new string[] { "success", token };
                 return response;
             }
-            response = ["Error", "Incorrect password"];
+            response = new string[] { "error", "Incorrect password" };
             return response;
         }
     }
