@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Capstone_Api.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,6 +10,8 @@ namespace Capstone_Api.Apis
 {
     public class LoginController : ApiController
     {
+        private ApplicationDbContext _db = new ApplicationDbContext();
+
         // GET api/<controller>
         public IEnumerable<string> Get()
         {
@@ -22,18 +25,25 @@ namespace Capstone_Api.Apis
         }
 
         // POST api/<controller>
-        public void Post([FromBody]string value)
+        [HttpPost]
+        public string[] Post(string username, string password)
         {
-        }
-
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
+            string userId;
+            string[] response;
+            if (!_db.CheckUsername(username))
+            {
+                response = ["Error", "User not found"];
+                return response;
+            }
+            userId = _db.GetUserId(username);
+            if (_db.CheckPassword(userId, password))
+            {
+                string token = _db.GetToken(userId);
+                response = ["success", token];
+                return response;
+            }
+            response = ["Error", "Incorrect password"];
+            return response;
         }
     }
 }
