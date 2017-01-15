@@ -14,6 +14,11 @@ namespace Capstone_Api.Apis
         
         public string Post(string token, string message, string longitude, string latitude)
         {
+            if (!_db.verifyToken(token))
+            {
+                return null;
+            }
+
             Message newMessage = new Message();
             string userId = _db.GetUserIdFromToken(token);
             DateTime timeNow = DateTime.Now;
@@ -27,13 +32,15 @@ namespace Capstone_Api.Apis
             _db.SaveChanges();
             return "success";
         }
-
-        [Route("api/Message/Recieve/{userId}")]
-        public List<Message> Get(string userId)
+        
+        public List<Message> Get(string token, string longitude, string latitude)
         {
-            return _db.Messages
-                .Where(m => m.UserId == userId)
-                .ToList();
+            if (!_db.verifyToken(token))
+            {
+                return null;
+            }
+
+            return _db.GetNearbyMessages(double.Parse(longitude), double.Parse(latitude));
         }
     }
 }

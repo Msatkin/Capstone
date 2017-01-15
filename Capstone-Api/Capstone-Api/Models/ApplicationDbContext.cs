@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Device.Location;
 using System.Linq;
 
 namespace Capstone_Api.Models
@@ -43,6 +45,10 @@ namespace Capstone_Api.Models
         {
             return Users.FirstOrDefault(u => u.Token == token).Id;
         }
+        public bool verifyToken(string token)
+        {
+            return (Users.FirstOrDefault(u => u.Token == token) != null);
+        }
 
         public ApplicationUser GetUser(string id)
         {
@@ -72,6 +78,21 @@ namespace Capstone_Api.Models
         public string CreateToken()
         {
             return Convert.ToBase64String(Guid.NewGuid().ToByteArray());
+        }
+
+        public List<Message> GetNearbyMessages(double longitude, double latitude)
+        {
+            List<Message> nearbyMessages = new List<Message>();
+            //Filter.
+            return nearbyMessages;
+        }
+
+        private bool VerifyDistance(double longitudeOne, double latitudeOne, double longitudeTwo, double latitudeTwo)
+        {
+            var sCoord = new GeoCoordinate(latitudeOne, longitudeOne);
+            var eCoord = new GeoCoordinate(latitudeTwo, longitudeTwo);
+
+            return (sCoord.GetDistanceTo(eCoord) < 100);
         }
     }
 }
