@@ -11,16 +11,21 @@ namespace Capstone_Api.Apis
     public class MessageController : ApiController
     {
         private ApplicationDbContext _db = new ApplicationDbContext();
-
-        [Route("api/Message/Create/{userId}/{message}")]
-        public void Post(string message, string userId)
+        
+        public string Post(string token, string message, string longitude, string latitude)
         {
             Message newMessage = new Message();
+            string userId = _db.GetUserIdFromToken(token);
+            DateTime timeNow = DateTime.Now;
+
             newMessage.Text = message;
-            newMessage.Date = DateTime.Now;
+            newMessage.Date = timeNow;
             newMessage.UserId = userId;
+            newMessage.Longitude = decimal.Parse(longitude);
+            newMessage.Latitude = decimal.Parse(latitude);
             _db.Messages.Add(newMessage);
             _db.SaveChanges();
+            return "success";
         }
 
         [Route("api/Message/Recieve/{userId}")]

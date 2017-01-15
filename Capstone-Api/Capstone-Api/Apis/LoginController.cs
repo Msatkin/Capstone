@@ -12,38 +12,35 @@ namespace Capstone_Api.Apis
     {
         private ApplicationDbContext _db = new ApplicationDbContext();
 
-        // GET api/<controller>
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<controller>/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
         // POST api/<controller>
         [HttpPost]
-        public string[] Post(string username, string password)
+        public string Post(string username, string password)
         {
             string userId;
-            string[] response;
+            string response;
             if (!_db.CheckUsername(username))
             {
-                response = new string[] { "error", "User not found" };
+                response = "error:User not found";
                 return response;
             }
-            userId = _db.GetUserId(username);
+            userId = _db.GetUserIdFromUsername(username);
             if (_db.CheckPassword(userId, password))
             {
                 string token = _db.GetToken(userId);
-                response = new string[] { "success", token };
+                response = "success:" + token;
                 return response;
             }
-            response = new string[] { "error", "Incorrect password" };
+            response = "error:Incorrect password";
             return response;
+        }
+
+        public string Post(string token)
+        {
+            if(_db.CheckToken(token))
+            {
+                return "success";
+            }
+            return "Invalid token";
         }
     }
 }

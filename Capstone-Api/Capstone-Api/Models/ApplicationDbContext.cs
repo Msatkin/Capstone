@@ -21,25 +21,27 @@ namespace Capstone_Api.Models
 
         public bool CheckUsername(string username)
         {
-            if (this.Users.Any(c => c.UserName == username))
-            {
-                return false;
-            }
-            return true;
+            return Users.Any(u => u.UserName.ToLower() == username.ToLower());
         }
 
         public bool CheckEmail(string email)
         {
-            if (this.Users.Any(c => c.Email == email))
-            {
-                return false;
-            }
-            return true;
+            return Users.Any(u => u.Email.ToLower() == email.ToLower());
         }
 
-        public string GetUserId(string username)
+        public bool CheckToken(string token)
         {
-            return Users.FirstOrDefault(u => u.Id == username).Id;
+            return Users.Any(u => u.Token == token);
+        }
+
+        public string GetUserIdFromUsername(string username)
+        {
+            return Users.FirstOrDefault(u => u.UserName.ToLower() == username.ToLower()).Id;
+        }
+
+        public string GetUserIdFromToken(string token)
+        {
+            return Users.FirstOrDefault(u => u.Token == token).Id;
         }
 
         public ApplicationUser GetUser(string id)
@@ -50,11 +52,8 @@ namespace Capstone_Api.Models
         public bool CheckPassword(string userId, string password)
         {
             ApplicationUser user = GetUser(userId);
-            if (user.PasswordHash == password)
-            {
-                return true;
-            }
-            return false;
+            return (user.PasswordHash == password);
+
         }
 
         public string GetToken(string userId)

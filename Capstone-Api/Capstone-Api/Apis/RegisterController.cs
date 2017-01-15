@@ -17,23 +17,23 @@ namespace Capstone_Api.Apis
         {
             try
             {
-                if (_db.CheckUsername(username) && _db.CheckEmail(email))
+                if (!_db.CheckUsername(username) && !_db.CheckEmail(email))
                 {
                     return CreateUser(username, password, email);
                 }
-                if (!_db.CheckEmail(email))
+                if (_db.CheckEmail(email))
                 {
                     return "email";
                 }
-                if (!_db.CheckUsername(username))
+                if (_db.CheckUsername(username))
                 {
                     return "username";
                 }
                 return "fail";
             }
-            catch
+            catch (Exception e)
             {
-                return "caught...";
+                return "Error: " + e;
             }
         }
 

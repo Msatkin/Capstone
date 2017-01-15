@@ -18,5 +18,11 @@ namespace Capstone_Api.Models
 
         [Required]
         public DateTime Date { get; set; }
+
+        [Required]
+        public decimal Longitude { get; set; }
+
+        [Required]
+        public decimal Latitude { get; set; }
     }
 }
