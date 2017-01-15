@@ -3,7 +3,7 @@ namespace Capstone_Api.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Init : DbMigration
+    public partial class init : DbMigration
     {
         public override void Up()
         {
@@ -15,6 +15,8 @@ namespace Capstone_Api.Migrations
                         UserId = c.String(nullable: false, maxLength: 128),
                         Text = c.String(),
                         Date = c.DateTime(nullable: false),
+                        Longitude = c.Double(nullable: false),
+                        Latitude = c.Double(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
@@ -25,6 +27,7 @@ namespace Capstone_Api.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
+                        Token = c.String(),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),

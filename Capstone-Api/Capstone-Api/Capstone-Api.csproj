@@ -284,17 +284,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201701051722429_Init.cs" />
-    <Compile Include="Migrations\201701051722429_Init.Designer.cs">
-      <DependentUpon>201701051722429_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701131714244_Adding token to userr table.cs" />
-    <Compile Include="Migrations\201701131714244_Adding token to userr table.Designer.cs">
-      <DependentUpon>201701131714244_Adding token to userr table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701150344492_added position to messages.cs" />
-    <Compile Include="Migrations\201701150344492_added position to messages.Designer.cs">
-      <DependentUpon>201701150344492_added position to messages.cs</DependentUpon>
+    <Compile Include="Migrations\201701151820538_init.cs" />
+    <Compile Include="Migrations\201701151820538_init.Designer.cs">
+      <DependentUpon>201701151820538_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -398,14 +390,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701051722429_Init.resx">
-      <DependentUpon>201701051722429_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701131714244_Adding token to userr table.resx">
-      <DependentUpon>201701131714244_Adding token to userr table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701150344492_added position to messages.resx">
-      <DependentUpon>201701150344492_added position to messages.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201701151820538_init.resx">
+      <DependentUpon>201701151820538_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
