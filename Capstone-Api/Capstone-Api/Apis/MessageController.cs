@@ -26,8 +26,8 @@ namespace Capstone_Api.Apis
             newMessage.Text = message;
             newMessage.Date = timeNow;
             newMessage.UserId = userId;
-            newMessage.Longitude = decimal.Parse(longitude);
-            newMessage.Latitude = decimal.Parse(latitude);
+            newMessage.Longitude = double.Parse(longitude);
+            newMessage.Latitude = double.Parse(latitude);
             _db.Messages.Add(newMessage);
             _db.SaveChanges();
             return "success";

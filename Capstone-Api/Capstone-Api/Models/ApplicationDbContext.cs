@@ -82,9 +82,7 @@ namespace Capstone_Api.Models
 
         public List<Message> GetNearbyMessages(double longitude, double latitude)
         {
-            List<Message> nearbyMessages = new List<Message>();
-            //Filter.
-            return nearbyMessages;
+            return Messages.Where(u => VerifyDistance(u.Longitude, u.Latitude, longitude, latitude)).ToList();
         }
 
         private bool VerifyDistance(double longitudeOne, double latitudeOne, double longitudeTwo, double latitudeTwo)
