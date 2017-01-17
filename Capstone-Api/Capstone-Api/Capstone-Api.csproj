@@ -288,6 +288,10 @@
     <Compile Include="Migrations\201701151820538_init.Designer.cs">
       <DependentUpon>201701151820538_init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701162231467_added username property to messages.cs" />
+    <Compile Include="Migrations\201701162231467_added username property to messages.Designer.cs">
+      <DependentUpon>201701162231467_added username property to messages.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -392,6 +396,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201701151820538_init.resx">
       <DependentUpon>201701151820538_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701162231467_added username property to messages.resx">
+      <DependentUpon>201701162231467_added username property to messages.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

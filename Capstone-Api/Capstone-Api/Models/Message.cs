@@ -14,6 +14,9 @@ namespace Capstone_Api.Models
         public string UserId { get; set; }
         public ApplicationUser User { get; set; }
 
+        [Required]
+        public string Username { get; set; }
+
         public string Text { get; set; }
 
         [Required]

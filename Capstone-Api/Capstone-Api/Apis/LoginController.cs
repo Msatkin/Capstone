@@ -34,6 +34,7 @@ namespace Capstone_Api.Apis
             return response;
         }
 
+        [HttpPost]
         public string Post(string token)
         {
             if(_db.CheckToken(token))

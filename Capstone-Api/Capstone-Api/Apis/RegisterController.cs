@@ -23,13 +23,13 @@ namespace Capstone_Api.Apis
                 }
                 if (_db.CheckEmail(email))
                 {
-                    return "email";
+                    return "error:Email already taken";
                 }
                 if (_db.CheckUsername(username))
                 {
-                    return "username";
+                    return "error:Username already taken";
                 }
-                return "fail";
+                return "error:An unexpected error has occured";
             }
             catch (Exception e)
             {
@@ -45,13 +45,14 @@ namespace Capstone_Api.Apis
                 newUser.UserName = username;
                 newUser.Email = email;
                 newUser.PasswordHash = password;
+                newUser.Token = _db.CreateToken();
                 _db.Users.Add(newUser);
                 _db.SaveChanges();
-                return "success";
+                return "success:" + newUser.Token;
             }
-            catch
+            catch (Exception e)
             {
-                return "fail";
+                return "error:" + e;
             }
         }
     }

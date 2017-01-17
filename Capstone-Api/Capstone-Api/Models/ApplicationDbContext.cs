@@ -50,21 +50,25 @@ namespace Capstone_Api.Models
             return (Users.FirstOrDefault(u => u.Token == token) != null);
         }
 
-        public ApplicationUser GetUser(string id)
+        public ApplicationUser GetUserFromId(string id)
         {
             return Users.FirstOrDefault(u => u.Id == id);
+        }
+        public ApplicationUser GetUserFromToken(string token)
+        {
+            return Users.FirstOrDefault(u => u.Token == token);
         }
 
         public bool CheckPassword(string userId, string password)
         {
-            ApplicationUser user = GetUser(userId);
+            ApplicationUser user = GetUserFromId(userId);
             return (user.PasswordHash == password);
 
         }
 
         public string GetToken(string userId)
         {
-            ApplicationUser user = GetUser(userId);
+            ApplicationUser user = GetUserFromId(userId);
             if (user.Token == null)
             {
                 string token = CreateToken();
@@ -82,15 +86,40 @@ namespace Capstone_Api.Models
 
         public List<Message> GetNearbyMessages(double longitude, double latitude)
         {
-            return Messages.Where(u => VerifyDistance(u.Longitude, u.Latitude, longitude, latitude)).ToList();
+            List<Message> nearbyMessages = new List<Message>();
+            foreach (Message message in Messages)
+            {
+                if (VerifyDistance(message.Longitude, message.Latitude, longitude, latitude, 100))
+                {
+                    Message copyMessage = message;
+                    copyMessage.User = null;
+                    nearbyMessages.Add(copyMessage);
+                }
+            }
+            return nearbyMessages;
         }
 
-        private bool VerifyDistance(double longitudeOne, double latitudeOne, double longitudeTwo, double latitudeTwo)
+        public void CreateTextMessage(ApplicationUser user, string message, string longitude, string latitude)
+        {
+            Message newMessage = new Message();
+            DateTime timeNow = DateTime.Now;
+
+            newMessage.Text = message;
+            newMessage.Date = timeNow;
+            newMessage.UserId = user.Id;
+            newMessage.Username = user.UserName;
+            newMessage.Longitude = double.Parse(longitude);
+            newMessage.Latitude = double.Parse(latitude);
+
+            Messages.Add(newMessage);
+            SaveChanges();
+        }
+        public bool VerifyDistance(double longitudeOne, double latitudeOne, double longitudeTwo, double latitudeTwo, double distance)
         {
             var sCoord = new GeoCoordinate(latitudeOne, longitudeOne);
             var eCoord = new GeoCoordinate(latitudeTwo, longitudeTwo);
 
-            return (sCoord.GetDistanceTo(eCoord) < 100);
+            return (sCoord.GetDistanceTo(eCoord) < distance);
         }
     }
 }
