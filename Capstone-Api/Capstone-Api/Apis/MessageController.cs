@@ -35,5 +35,29 @@ namespace Capstone_Api.Apis
 
             return _db.GetNearbyMessages(double.Parse(longitude), double.Parse(latitude));
         }
+
+        [HttpDelete]
+        public void Delete(string token, int messageId)
+        {
+            if (!_db.verifyToken(token))
+            {
+                return;
+            }
+
+            Message messageToDelete = _db.GetMessageFromId(messageId);
+            _db.DeleteMessage(messageToDelete);
+        }
+
+        [HttpPost]
+        public void Post(string token, int messageId)
+        {
+            if (!_db.verifyToken(token))
+            {
+                return;
+            }
+
+            Message messageViewed = _db.GetMessageFromId(messageId);
+            _db.AddView(messageViewed);
+        }
     }
 }

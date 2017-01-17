@@ -41,6 +41,11 @@ namespace Capstone_Api.Models
             return Users.FirstOrDefault(u => u.UserName.ToLower() == username.ToLower()).Id;
         }
 
+        public Message GetMessageFromId(int id)
+        {
+            return Messages.FirstOrDefault(m => m.Id == id);
+        }
+
         public string GetUserIdFromToken(string token)
         {
             return Users.FirstOrDefault(u => u.Token == token).Id;
@@ -106,6 +111,7 @@ namespace Capstone_Api.Models
 
             newMessage.Text = message;
             newMessage.Date = timeNow;
+            newMessage.ExpirationDate = timeNow.AddDays(user.ExpirationDelay);
             newMessage.UserId = user.Id;
             newMessage.Username = user.UserName;
             newMessage.Longitude = double.Parse(longitude);
@@ -120,6 +126,18 @@ namespace Capstone_Api.Models
             var eCoord = new GeoCoordinate(latitudeTwo, longitudeTwo);
 
             return (sCoord.GetDistanceTo(eCoord) < distance);
+        }
+
+        public void DeleteMessage(Message message)
+        {
+            Messages.Remove(message);
+            SaveChanges();
+        }
+
+        public void AddView(Message message)
+        {
+            message.Views++;
+            SaveChanges();
         }
     }
 }

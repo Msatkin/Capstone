@@ -23,9 +23,15 @@ namespace Capstone_Api.Models
         public DateTime Date { get; set; }
 
         [Required]
+        public DateTime ExpirationDate { get; set; }
+
+        [Required]
         public double Longitude { get; set; }
 
         [Required]
         public double Latitude { get; set; }
+
+        [Required]
+        public int Views { get; set; }
     }
 }

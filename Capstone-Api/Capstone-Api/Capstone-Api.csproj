@@ -292,6 +292,14 @@
     <Compile Include="Migrations\201701162231467_added username property to messages.Designer.cs">
       <DependentUpon>201701162231467_added username property to messages.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701172058011_Added expiration date to messages.cs" />
+    <Compile Include="Migrations\201701172058011_Added expiration date to messages.Designer.cs">
+      <DependentUpon>201701172058011_Added expiration date to messages.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701172358370_added delay setting to user.cs" />
+    <Compile Include="Migrations\201701172358370_added delay setting to user.Designer.cs">
+      <DependentUpon>201701172358370_added delay setting to user.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -399,6 +407,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701162231467_added username property to messages.resx">
       <DependentUpon>201701162231467_added username property to messages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701172058011_Added expiration date to messages.resx">
+      <DependentUpon>201701172058011_Added expiration date to messages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701172358370_added delay setting to user.resx">
+      <DependentUpon>201701172358370_added delay setting to user.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

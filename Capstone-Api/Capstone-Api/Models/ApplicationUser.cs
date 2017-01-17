@@ -9,6 +9,8 @@ namespace Capstone_Api.Models
     public class ApplicationUser : IdentityUser
     {
         public string Token { get; set; }
+        [Required]
+        public int ExpirationDelay { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {
