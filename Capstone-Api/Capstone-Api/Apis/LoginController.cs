@@ -37,9 +37,19 @@ namespace Capstone_Api.Apis
         [HttpPost]
         public string Post(string token)
         {
-            if(_db.CheckToken(token))
+            if (_db.CheckToken(token))
             {
                 return "success";
+            }
+            return "Invalid token";
+        }
+        [HttpGet]
+        public string Get(string token, string username)
+        {
+            if (_db.CheckToken(token))
+            {
+                ApplicationUser user = _db.GetUserFromToken(token);
+                return "success:" + user.UserName;
             }
             return "Invalid token";
         }

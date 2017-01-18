@@ -13,14 +13,14 @@ namespace Capstone_Api.Apis
         private ApplicationDbContext _db = new ApplicationDbContext();
 
         [HttpPost]
-        public string Post(string token, string message, string longitude, string latitude)
+        public string Post(string token, string message, string longitude, string latitude, string delay)
         {
             if (!_db.verifyToken(token))
             {
                 return null;
             }
             ApplicationUser user = _db.GetUserFromToken(token);
-            _db.CreateTextMessage(user, message, longitude, latitude);
+            _db.CreateTextMessage(user, message, longitude, latitude, int.Parse(delay));
             
             return "success";
         }
@@ -37,27 +37,42 @@ namespace Capstone_Api.Apis
         }
 
         [HttpDelete]
-        public void Delete(string token, int messageId)
+        public string Delete(string token, int messageId)
         {
-            if (!_db.verifyToken(token))
+            try
             {
-                return;
-            }
+                if (!_db.verifyToken(token))
+                {
+                    return "Invalid token";
+                }
 
-            Message messageToDelete = _db.GetMessageFromId(messageId);
-            _db.DeleteMessage(messageToDelete);
+                Message messageToDelete = _db.GetMessageFromId(messageId);
+                _db.DeleteMessage(messageToDelete);
+                return "Message deleted";
+            }
+            catch (Exception e)
+            {
+                return "Error: " + e;
+            }
         }
 
         [HttpPost]
-        public void Post(string token, int messageId)
+        public string Post(string token, int messageId)
         {
-            if (!_db.verifyToken(token))
-            {
-                return;
-            }
+            try {
+                if (!_db.verifyToken(token))
+                {
+                    return "Invalid token";
+                }
 
-            Message messageViewed = _db.GetMessageFromId(messageId);
-            _db.AddView(messageViewed);
-        }
+                Message messageViewed = _db.GetMessageFromId(messageId);
+                _db.AddView(messageViewed);
+                return "Message viewed";
+            }
+            catch (Exception e)
+            {
+                return "Error: " + e;
+            }
+}
     }
 }

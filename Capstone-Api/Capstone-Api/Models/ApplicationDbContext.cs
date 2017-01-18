@@ -104,14 +104,14 @@ namespace Capstone_Api.Models
             return nearbyMessages;
         }
 
-        public void CreateTextMessage(ApplicationUser user, string message, string longitude, string latitude)
+        public void CreateTextMessage(ApplicationUser user, string message, string longitude, string latitude, int delay)
         {
             Message newMessage = new Message();
             DateTime timeNow = DateTime.Now;
 
             newMessage.Text = message;
             newMessage.Date = timeNow;
-            newMessage.ExpirationDate = timeNow.AddDays(user.ExpirationDelay);
+            newMessage.ExpirationDate = timeNow.AddDays(delay);
             newMessage.UserId = user.Id;
             newMessage.Username = user.UserName;
             newMessage.Longitude = double.Parse(longitude);
@@ -130,14 +130,24 @@ namespace Capstone_Api.Models
 
         public void DeleteMessage(Message message)
         {
-            Messages.Remove(message);
-            SaveChanges();
+            this.Entry(message).State = System.Data.Entity.EntityState.Deleted;
+            this.SaveChanges();
         }
 
         public void AddView(Message message)
         {
             message.Views++;
             SaveChanges();
+        }
+
+        public void DeleteExpiredMessages()
+        {
+            DateTime timeNow = DateTime.Now;
+            List<Message> expiredMessages = Messages.Where(m => m.ExpirationDate < timeNow).ToList();
+            while (expiredMessages.Count > 0)
+            {
+                DeleteMessage(expiredMessages[0]);
+            }
         }
     }
 }
