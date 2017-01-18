@@ -110,7 +110,7 @@ namespace Capstone_Api.Models
             DateTime timeNow = DateTime.Now;
 
             newMessage.Text = message;
-            newMessage.Date = timeNow;
+            newMessage.PostedDate = timeNow;
             newMessage.ExpirationDate = timeNow.AddDays(delay);
             newMessage.UserId = user.Id;
             newMessage.Username = user.UserName;

@@ -138,6 +138,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
@@ -320,6 +321,10 @@
     <Compile Include="Migrations\201701172358370_added delay setting to user.Designer.cs">
       <DependentUpon>201701172358370_added delay setting to user.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701180823273_updated date name.cs" />
+    <Compile Include="Migrations\201701180823273_updated date name.Designer.cs">
+      <DependentUpon>201701180823273_updated date name.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -437,6 +442,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701172358370_added delay setting to user.resx">
       <DependentUpon>201701172358370_added delay setting to user.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701180823273_updated date name.resx">
+      <DependentUpon>201701180823273_updated date name.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

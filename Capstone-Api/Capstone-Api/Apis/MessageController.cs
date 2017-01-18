@@ -1,10 +1,14 @@
 ﻿using Capstone_Api.Models;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web.Helpers;
+using System.Web.Script.Serialization;
 using System.Web.Http;
+using System.Web.Http.Results;
 
 namespace Capstone_Api.Apis
 {
@@ -32,8 +36,9 @@ namespace Capstone_Api.Apis
             {
                 return null;
             }
-
-            return _db.GetNearbyMessages(double.Parse(longitude), double.Parse(latitude));
+            List<Message> messages = _db.GetNearbyMessages(double.Parse(longitude), double.Parse(latitude));
+            var json = new JavaScriptSerializer().Serialize(messages);
+            return messages;
         }
 
         [HttpDelete]
